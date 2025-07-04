@@ -1,0 +1,14 @@
+.profile-section{
+	position: absolute;
+	left: 45px;
+	top: 45px;
+	width: 100px;
+}
+
+.bg-img{
+	background: url('../images/bg.jpg');
+	height: 600px;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}

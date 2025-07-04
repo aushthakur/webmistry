@@ -1,0 +1,95 @@
+<div id="cpc-tool">
+  <h2 style="color: #22b14c;">CPC & ROAS Estimator</h2>
+  <p>Enter your campaign details to estimate performance and get actionable tips.</p>
+
+  <div class="form-grid">
+    <input type="number" id="adSpend" placeholder="Total Ad Spend (₹)" required>
+    <input type="number" id="clicks" placeholder="Estimated Clicks" required>
+    <input type="number" id="conversions" placeholder="Conversions" required>
+    <input type="number" id="avgOrderValue" placeholder="Avg Order Value (₹)" required>
+  </div>
+
+  <button id="calculateBtn">Estimate</button>
+
+  <div id="resultBox" style="display: none;">
+    <h3>📊 Results</h3>
+    <p><strong>CPC:</strong> ₹<span id="cpcResult">-</span></p>
+    <p><strong>ROAS:</strong> <span id="roasResult">-</span> ×</p>
+
+    <h4 style="margin-top: 20px;">📈 Tips to Improve</h4>
+    <ul id="tipsList">
+      <!-- Dynamic tips here -->
+    </ul>
+  </div>
+</div>
+
+<style>
+#cpc-tool {
+  font-family: Arial, sans-serif;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 15px;
+}
+#cpc-tool input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+#cpc-tool button {
+  margin-top: 20px;
+  background-color: #22b14c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#cpc-tool button:hover {
+  background-color: #1a913a;
+}
+#resultBox {
+  background: #f4f4f4;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+#tipsList {
+  padding-left: 20px;
+}
+</style>
+
+<script>
+document.getElementById("calculateBtn").addEventListener("click", function () {
+  const spend = parseFloat(document.getElementById("adSpend").value);
+  const clicks = parseFloat(document.getElementById("clicks").value);
+  const conversions = parseFloat(document.getElementById("conversions").value);
+  const aov = parseFloat(document.getElementById("avgOrderValue").value);
+
+  if (!spend || !clicks || !conversions || !aov) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  const cpc = (spend / clicks).toFixed(2);
+  const revenue = conversions * aov;
+  const roas = (revenue / spend).toFixed(2);
+
+  document.getElementById("cpcResult").innerText = cpc;
+  document.getElementById("roasResult").innerText = roas;
+  document.getElementById("resultBox").style.display = "block";
+
+  // Show tips dynamically
+  const tips = [];
+  if (cpc > 30) tips.push("🔽 Lower CPC by optimizing keywords and targeting long-tail keywords.");
+  if (roas < 3) tips.push("📈 Improve ROAS by optimizing landing pages and improving conversion rates.");
+  if (clicks < 100) tips.push("📊 Increase traffic by expanding ad reach or using A/B tested creatives.");
+  if (aov < 500) tips.push("💡 Consider upselling or bundling products to boost average order value.");
+
+  if (tips.length === 0) tips.push("✅ Great job! Your CPC and ROAS are looking good.");
+
+  document.getElementById("tipsList").innerHTML = tips.map(t => `<li>${t}</li>`).join("");
+});
+</script>

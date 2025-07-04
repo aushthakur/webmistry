@@ -1,0 +1,2 @@
+# login-logout-in-php-with-session
+In this project, the user can register in the registration form with the required details. Once the registration has completed, the entered details will be stored into the MySQL database. After registration, the user can login to access the index page. If the user enters the correct login details, he/she will enter into the index page. Otherwise, it will prevent from accessing the index page.
